@@ -1,10 +1,11 @@
-# require 'sinatra'
+require 'sinatra'
+require 'sinatra/base'
+require 'slim'
 
 require_relative 'processador'
 
-processor = Processador.new
-processor.processar
-
-# get '/' do
-#   'Hello World'
-# end
+get '/' do
+	@processor = Processador.new
+	@processor.processar
+	slim :'index'
+end

@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title
+      | Aplicação Campeonato Brasileiro
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+    link[href="css/bootstrap.min.css" rel="stylesheet"]
+    link[href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css" rel="stylesheet"]
+  body
+    .container
+      nav.navbar.navbar-default[role="navigation"]
+        .navbar-header
+          button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
+            span.sr-only
+              | Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand[href="/"]
+            | Aplicação Campeonato Brasileiro
+        .navbar-collapse.collapse
+      div
+        - if @error then
+          .alert.alert-error
+            =@error
+        == yield
+
+script[src="/js/jquery-3.2.1.min.js"]
+script[src="/js/bootstrap.min.js"]
+script[src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"]

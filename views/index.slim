@@ -1,0 +1,39 @@
+table[data-toggle="table" data-sort-order="desc"]
+  thead
+    tr
+      th Mandante
+      th Visitante
+      th[data-field="gfm" data-sortable="true"] GF Mandante
+      th[data-field="gsv" data-sortable="true"] GS Visitante
+      th[data-field="soma1" data-sortable="true"] SOMA 
+      / (Quanto mais, maior a chance do mandante fazer gol)
+      
+      th[data-field="gsm" data-sortable="true"] GS Mandante
+      th[data-field="gfv" data-sortable="true"] GF Visitante
+      th[data-field="soma2" data-sortable="true"] SOMA 
+      / (Quanto menos, maior a chance do mandante nao levar gol)
+
+      th[data-field="aprovMan" data-sortable="true"] Aprov Mandante
+      th[data-field="aprovVis" data-sortable="true"] Aprov Visitante
+      th[data-field="difAprov" data-sortable="true"] DIF 
+      / (Quanto mais extremo, maior a chance do mandante/visitante ganhar)
+  tbody
+    - @processor.partidas_rodada_atual.each do |partida|
+      tr
+        - mandante = partida.mandante
+        - visitante = partida.visitante
+        
+        td = mandante.nome
+        td = visitante.nome
+
+        td = mandante.gols_feitos_mandante
+        td = visitante.gols_sofridos_visitante
+        td = mandante.gols_feitos_mandante + visitante.gols_sofridos_visitante
+        
+        td = mandante.gols_sofridos_mandante
+        td = visitante.gols_feitos_visitante
+        td = mandante.gols_sofridos_mandante + visitante.gols_feitos_visitante
+        
+        td = mandante.aproveitamento_mandante
+        td = visitante.aproveitamento_visitante
+        td = mandante.aproveitamento_mandante - visitante.aproveitamento_visitante
