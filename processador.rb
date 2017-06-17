@@ -6,7 +6,7 @@ require_relative 'partida'
 require_relative 'processador_desempenho'
 
 class Processador
-	attr_accessor :clubes, :partidas, :rodada_atual
+	attr_accessor :clubes, :partidas_terminadas, :partidas_rodada_atual, :rodada_atual
 
 	def processar
 		json_rodada_atual = request('https://api.cartolafc.globo.com/partidas')
@@ -15,7 +15,7 @@ class Processador
 		processar_clubes(json_rodada_atual)
 		processar_partidas_todas_rodadas()
 
-		ProcessadorDesempenho.new.processar(@partidas)
+		ProcessadorDesempenho.new.processar(@partidas_terminadas)
 	end
 
 	private 
@@ -37,18 +37,19 @@ class Processador
 
 	def processa_rodada_atual(json_rodada_atual) 
 		@rodada_atual = json_rodada_atual["rodada"]
+		processar_partidas_rodada(json_rodada_atual, @partidas_rodada_atual)
 	end
 
 	def processar_partidas_todas_rodadas
-		@partidas = Array.new
+		@partidas_terminadas = Array.new
 		rodadas_completas = @rodada_atual - 1
 		(1..rodadas_completas).each do |rodada|
 			json_rodada = request("https://api.cartolafc.globo.com/partidas/#{rodada}")
-			processar_partidas_rodada(json_rodada)
+			processar_partidas_rodada(json_rodada, @partidas_terminadas)
 		end
 	end
 
-	def processar_partidas_rodada(json_rodada)
+	def processar_partidas_rodada(json_rodada, array_partidas)
 		json_rodada["partidas"].each do |json_partida|
 			partida = Partida.new
 
@@ -58,7 +59,7 @@ class Processador
 			partida.gols_mandante = json_partida["placar_oficial_mandante"]
 			partida.gols_visitante = json_partida["placar_oficial_visitante"]
 
-			@partidas << partida
+			@partidas_terminadas << partida
 		end
 	end
 
