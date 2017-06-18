@@ -1,21 +1,21 @@
-table[data-toggle="table" data-sort-order="desc"]
+table.tablesorter.table
   thead
     tr
       th Mandante
       th Visitante
-      th[data-field="gfm" data-sortable="true"] GF Mandante
-      th[data-field="gsv" data-sortable="true"] GS Visitante
-      th[data-field="soma1" data-sortable="true"] SOMA 
+      th GF Mandante
+      th GS Visitante
+      th SOMA 
       / (Quanto mais, maior a chance do mandante fazer gol)
       
-      th[data-field="gsm" data-sortable="true"] GS Mandante
-      th[data-field="gfv" data-sortable="true"] GF Visitante
-      th[data-field="soma2" data-sortable="true"] SOMA 
+      th GS Mandante
+      th GF Visitante
+      th SOMA 
       / (Quanto menos, maior a chance do mandante nao levar gol)
 
-      th[data-field="aprovMan" data-sortable="true"] Aprov Mandante
-      th[data-field="aprovVis" data-sortable="true"] Aprov Visitante
-      th[data-field="difAprov" data-sortable="true"] DIF 
+      th Aprov Mandante
+      th Aprov Visitante
+      th DIF 
       / (Quanto mais extremo, maior a chance do mandante/visitante ganhar)
   tbody
     - @processor.partidas_rodada_atual.each do |partida|
